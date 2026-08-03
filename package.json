@@ -1,0 +1,8 @@
+{
+  "name": "job-aggregator",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
+}
