@@ -4,3 +4,4 @@ build/
 .next/
 .env
 *.log
+prisma/generated/

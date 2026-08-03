@@ -1,0 +1,74 @@
+// Prisma schema for job-aggregator
+// Mirrors packages/shared/src/types/job.ts (NormalizedJob) — keep both in sync.
+//
+// Prisma 7: connection URL lives in prisma.config.ts, not here.
+// PrismaClient is instantiated with a driver adapter — see src/db/client.ts.
+
+generator client {
+  provider = "prisma-client"
+  output   = "./generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum EmploymentType {
+  full_time
+  part_time
+  contract
+  internship
+  nysc
+  unknown
+}
+
+enum WorkMode {
+  onsite
+  remote
+  hybrid
+  unknown
+}
+
+enum SourceName {
+  jobberman
+  myjobmag
+  ngcareers
+  hotnigerianjobs
+  greenhouse
+  lever
+  whatsapp_manual
+}
+
+model Job {
+  id       String @id @default(cuid())
+  hash     String @unique // dedup key from packages/shared/src/utils/hash.ts
+
+  sourceName SourceName
+  sourceUrl  String
+  applyUrl   String
+
+  title       String
+  companyName String
+
+  city  String?
+  state String? // Nigerian state, e.g. "Lagos", "Oyo"
+
+  workMode       WorkMode       @default(unknown)
+  employmentType EmploymentType @default(unknown)
+  category       String?
+
+  salaryMin      Int?
+  salaryMax      Int?
+  salaryCurrency String? @default("NGN")
+
+  description String? @db.Text
+
+  firstSeenAt DateTime  @default(now()) // drives "posted X hours ago"
+  lastSeenAt  DateTime  @updatedAt      // bumped every time a scrape re-confirms it's live
+  expiredAt   DateTime?                 // set when a scrape stops finding it
+
+  @@index([state, workMode, employmentType])
+  @@index([category])
+  @@index([firstSeenAt])
+  @@index([expiredAt])
+}
