@@ -1,5 +1,5 @@
 import { createHash } from "crypto";
-import type { RawJob } from "../types/job";
+import type { RawJob } from "../types/job.js";
 
 /**
  * Normalizes a string for hashing: lowercase, trim, collapse whitespace,
@@ -26,7 +26,9 @@ function normalizeForHash(input: string): string {
  * fuzzy-matching problem for later (see packages/scrapers/src/dedup),
  * not something to solve by loosening this hash.
  */
-export function hashJob(job: Pick<RawJob, "title" | "companyName" | "locationRaw">): string {
+export function hashJob(
+  job: Pick<RawJob, "title" | "companyName" | "locationRaw">,
+): string {
   const key = [
     normalizeForHash(job.title),
     normalizeForHash(job.companyName),
