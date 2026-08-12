@@ -76,7 +76,7 @@ export function JobFilters({ current }: { current: JobFilterParams }) {
 
       <button
         type="submit"
-        className="rounded-md bg-accent px-4 py-1.5 text-sm font-medium text-white hover:bg-accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+        className="rounded-md bg-accent px-4 py-1.5 text-sm font-medium text-white hover:bg-accent-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         Filter
       </button>

@@ -71,7 +71,7 @@ export function JobCard({ job }: { job: ApiJob }) {
           href={job.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center text-sm font-medium text-accent hover:text-accent-ink focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          className="inline-flex items-center text-sm font-medium text-accent hover:text-accent-ink focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           View job →
         </a>
